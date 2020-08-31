@@ -80,8 +80,17 @@ namespace FlashCard
 
         public void RandomSort()
         {
-            //this.Words = this.OriginalWords.Select(x => x).Shuff.Reverse().ToList();
-            //this.Words.Ran
+            List<string> oldWords = this.Words;
+            this.Words = new List<string>();
+            Random rand = new Random();
+
+            for (int i = this.OriginalWords.Count; i > 0; i--)
+            {
+                int iChose = rand.Next(0, i);
+                this.Words.Add(oldWords[iChose]);
+                oldWords.Remove(oldWords[iChose]);
+            }
+
             this.CurrentNo = 0;
         }
     }
