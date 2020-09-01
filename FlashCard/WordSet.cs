@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FlashCard
 {
@@ -92,6 +92,20 @@ namespace FlashCard
             }
 
             this.CurrentNo = 0;
+        }
+
+        internal void ImportFile(string fileName)
+        {
+            //讀出所有內容.
+            string fileText = File.ReadAllText(fileName, Encoding.Default);
+
+            //移除所有的\r\n
+            fileText = fileText.Replace("\r\n", "");
+
+            //每個指令去除頭尾的空白
+            OriginalWords = fileText.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+
+            OriginalSort();
         }
     }
 }

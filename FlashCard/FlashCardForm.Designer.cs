@@ -39,6 +39,7 @@
             this.CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             this.TToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -76,7 +77,7 @@
             this.toolStripSeparator,
             this.XToolStripMenuItem});
             this.FToolStripMenuItem.Name = "FToolStripMenuItem";
-            this.FToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
+            this.FToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.FToolStripMenuItem.Text = "檔案(&F)";
             this.FToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FToolStripMenuItem_DropDownItemClicked);
             // 
@@ -85,20 +86,20 @@
             this.IToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("IToolStripMenuItem.Image")));
             this.IToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.IToolStripMenuItem.Name = "IToolStripMenuItem";
-            this.IToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.IToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.IToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.IToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
             this.IToolStripMenuItem.Tag = "I";
-            this.IToolStripMenuItem.Text = "匯入(&O)";
+            this.IToolStripMenuItem.Text = "載入檔案(&I)";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(212, 6);
             // 
             // XToolStripMenuItem
             // 
             this.XToolStripMenuItem.Name = "XToolStripMenuItem";
-            this.XToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.XToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
             this.XToolStripMenuItem.Tag = "X";
             this.XToolStripMenuItem.Text = "結束(&X)";
             // 
@@ -109,28 +110,28 @@
             this.OToolStripMenuItem,
             this.RToolStripMenuItem});
             this.TToolStripMenuItem.Name = "TToolStripMenuItem";
-            this.TToolStripMenuItem.Size = new System.Drawing.Size(101, 26);
+            this.TToolStripMenuItem.Size = new System.Drawing.Size(101, 23);
             this.TToolStripMenuItem.Text = "排列順序(&T)";
             this.TToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TToolStripMenuItem_DropDownItemClicked);
             // 
             // CToolStripMenuItem
             // 
             this.CToolStripMenuItem.Name = "CToolStripMenuItem";
-            this.CToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.CToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.CToolStripMenuItem.Tag = "C";
             this.CToolStripMenuItem.Text = "順向(&C)";
             // 
             // OToolStripMenuItem
             // 
             this.OToolStripMenuItem.Name = "OToolStripMenuItem";
-            this.OToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.OToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.OToolStripMenuItem.Tag = "O";
             this.OToolStripMenuItem.Text = "逆向(&O)";
             // 
             // RToolStripMenuItem
             // 
             this.RToolStripMenuItem.Name = "RToolStripMenuItem";
-            this.RToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.RToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.RToolStripMenuItem.Tag = "R";
             this.RToolStripMenuItem.Text = "隨機排列(&R)";
             // 
@@ -168,6 +169,7 @@
         private System.Windows.Forms.ToolStripMenuItem CToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
