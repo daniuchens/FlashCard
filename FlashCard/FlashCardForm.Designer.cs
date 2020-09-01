@@ -32,13 +32,13 @@
             this.btnMain = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.IToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OriginalSortMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReverseSortMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RandomSortMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,74 +66,81 @@
             this.TToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // FToolStripMenuItem
             // 
             this.FToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.IToolStripMenuItem,
+            this.OpenFileMenuItem,
             this.toolStripSeparator,
             this.XToolStripMenuItem});
             this.FToolStripMenuItem.Name = "FToolStripMenuItem";
-            this.FToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.FToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
             this.FToolStripMenuItem.Text = "檔案(&F)";
             this.FToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FToolStripMenuItem_DropDownItemClicked);
             // 
-            // IToolStripMenuItem
+            // OpenFileMenuItem
             // 
-            this.IToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("IToolStripMenuItem.Image")));
-            this.IToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.IToolStripMenuItem.Name = "IToolStripMenuItem";
-            this.IToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.IToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
-            this.IToolStripMenuItem.Tag = "I";
-            this.IToolStripMenuItem.Text = "載入檔案(&I)";
+            this.OpenFileMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("OpenFileMenuItem.Image")));
+            this.OpenFileMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OpenFileMenuItem.Name = "OpenFileMenuItem";
+            this.OpenFileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.OpenFileMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.OpenFileMenuItem.Tag = "O";
+            this.OpenFileMenuItem.Text = "載入檔案(&O)";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(228, 6);
             // 
             // XToolStripMenuItem
             // 
             this.XToolStripMenuItem.Name = "XToolStripMenuItem";
-            this.XToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
+            this.XToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.XToolStripMenuItem.Tag = "X";
             this.XToolStripMenuItem.Text = "結束(&X)";
             // 
             // TToolStripMenuItem
             // 
             this.TToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CToolStripMenuItem,
-            this.OToolStripMenuItem,
-            this.RToolStripMenuItem});
+            this.OriginalSortMenuItem,
+            this.ReverseSortMenuItem,
+            this.RandomSortMenuItem});
             this.TToolStripMenuItem.Name = "TToolStripMenuItem";
-            this.TToolStripMenuItem.Size = new System.Drawing.Size(101, 23);
-            this.TToolStripMenuItem.Text = "排列順序(&T)";
+            this.TToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
+            this.TToolStripMenuItem.Text = "排列順序(&S)";
             this.TToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TToolStripMenuItem_DropDownItemClicked);
             // 
-            // CToolStripMenuItem
+            // OriginalSortMenuItem
             // 
-            this.CToolStripMenuItem.Name = "CToolStripMenuItem";
-            this.CToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
-            this.CToolStripMenuItem.Tag = "C";
-            this.CToolStripMenuItem.Text = "順向(&C)";
+            this.OriginalSortMenuItem.Name = "OriginalSortMenuItem";
+            this.OriginalSortMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.OriginalSortMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.OriginalSortMenuItem.Tag = "C";
+            this.OriginalSortMenuItem.Text = "順向(&C)";
             // 
-            // OToolStripMenuItem
+            // ReverseSortMenuItem
             // 
-            this.OToolStripMenuItem.Name = "OToolStripMenuItem";
-            this.OToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
-            this.OToolStripMenuItem.Tag = "O";
-            this.OToolStripMenuItem.Text = "逆向(&O)";
+            this.ReverseSortMenuItem.Name = "ReverseSortMenuItem";
+            this.ReverseSortMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.ReverseSortMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.ReverseSortMenuItem.Tag = "R";
+            this.ReverseSortMenuItem.Text = "逆向(&R)";
             // 
-            // RToolStripMenuItem
+            // RandomSortMenuItem
             // 
-            this.RToolStripMenuItem.Name = "RToolStripMenuItem";
-            this.RToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
-            this.RToolStripMenuItem.Tag = "R";
-            this.RToolStripMenuItem.Text = "隨機排列(&R)";
+            this.RandomSortMenuItem.Name = "RandomSortMenuItem";
+            this.RandomSortMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.RandomSortMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.RandomSortMenuItem.Tag = "N";
+            this.RandomSortMenuItem.Text = "隨機排列(&N)";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "文字檔案|*.txt|CSV檔案|*.csv";
             // 
             // FlashCardForm
             // 
@@ -163,14 +170,14 @@
         private System.Windows.Forms.Button btnMain;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem FToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem IToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenFileMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripMenuItem XToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem CToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem OToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem RToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem OriginalSortMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ReverseSortMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RandomSortMenuItem;
+        public System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

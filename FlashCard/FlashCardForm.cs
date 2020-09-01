@@ -13,12 +13,7 @@ namespace FlashCard
             InitializeComponent();
 
             //讀取先前的設定值.
-            Setting setting = FileSetting.LoadFileSetting();
-
-            this.WordSet = new WordSet(setting);
-            ShowWord();
-
-            LoadFilesToMenu();
+            this.WordSet = new WordSet(FileSetting.LoadFileSetting());
         }
 
         private void btnMain_Click(object sender, EventArgs e)
@@ -49,6 +44,9 @@ namespace FlashCard
             //this.BringToFront();
             //this.Focus();
             this.KeyPreview = true;
+            ShowWord();
+            LoadFilesToMenu();
+            SetSortTypeChecked();
         }
 
         private void FlashCardForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -71,22 +69,23 @@ namespace FlashCard
                 case "C":
                     WordSet.OriginalSort();
                     break;
-                case "O":
+                case "R":
                     WordSet.ReverseSort();
                     break;
-                case "R":
+                case "N":
                     WordSet.RandomSort();
                     break;
             }
 
             ShowWord();
+            SetSortTypeChecked();
         }
 
         private void FToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Tag)
             {
-                case "I":
+                case "O":
                     ImportFile();
                     break;
                 case "X":
@@ -95,6 +94,7 @@ namespace FlashCard
                 default:
                     WordSet.ImportFile(e.ClickedItem.Tag.ToString());
                     ShowWord();
+                    SetSortTypeChecked();
                     break;
             }
         }
@@ -121,6 +121,7 @@ namespace FlashCard
             {
                 WordSet.ImportFile(openFileDialog1.FileName);
                 ShowWord();
+                SetSortTypeChecked();
             }
         }
 
@@ -129,11 +130,16 @@ namespace FlashCard
         {
             DirectoryInfo folder = new DirectoryInfo(Directory.GetCurrentDirectory());
             int pos = 2;
+            
             foreach (var file in folder.GetFiles("*.txt"))
             {
-                var menuItem = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(file.Name));
-                menuItem.Tag = file.FullName;
-                FToolStripMenuItem.DropDownItems.Insert(pos, menuItem);
+                InsertFileToMenu(file, pos);
+                pos++;
+            }
+
+            foreach (var file in folder.GetFiles("*.csv"))
+            {
+                InsertFileToMenu(file, pos);
                 pos++;
             }
 
@@ -142,9 +148,38 @@ namespace FlashCard
             FToolStripMenuItem.DropDownItems.Insert(pos, sepline);
         }
 
+        private void InsertFileToMenu(FileInfo file, int pos)
+        {
+            var menuItem = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(file.Name));
+            menuItem.Tag = file.FullName;
+            FToolStripMenuItem.DropDownItems.Insert(pos, menuItem);
+        }
+
         private void FlashCardForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             FileSetting.SaveFileSetting(this.WordSet.Setting);
+        }
+
+        private void SetSortTypeChecked()
+        {
+            // 先全部清掉 Checked.
+            OriginalSortMenuItem.Checked = false;
+            ReverseSortMenuItem.Checked = false;
+            RandomSortMenuItem.Checked = false;
+            
+            // 獲取目前的排序方式.
+            switch(this.WordSet.Setting.SortType)
+            {
+                case SortType.Random:
+                    RandomSortMenuItem.Checked = true;
+                    break;
+                case SortType.Reverse:
+                    ReverseSortMenuItem.Checked = true;
+                    break;
+                default:
+                    OriginalSortMenuItem.Checked = true;
+                    break;
+            }
         }
     }
 }
