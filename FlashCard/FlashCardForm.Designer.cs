@@ -147,6 +147,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "閃卡遊戲";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FlashCardForm_FormClosing);
             this.Load += new System.EventHandler(this.FlashCardForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FlashCardForm_KeyPress);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FlashCardForm_PreviewKeyDown);

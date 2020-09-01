@@ -15,38 +15,65 @@ namespace FlashCard
         private List<string> OriginalWords;
         private int CurrentNo = 0;
 
-        public WordSet()
-        {
-            this.OriginalWords = new List<string>() { 
-                "A a",
-                "B b",
-                "C c",
-                "D d",
-                "E e",
-                "F f",
-                "G g",
-                "H h",
-                "I i",
-                "J j",
-                "K k",
-                "L l",
-                "M m",
-                "N n",
-                "O o",
-                "P p",
-                "Q q",
-                "R r",
-                "S s",
-                "T t",
-                "U u",
-                "V v",
-                "W w",
-                "X x",
-                "Y y",
-                "Z z",
-            };
+        public Setting Setting { get; set; }
 
-            this.OriginalSort();
+
+        public WordSet(Setting setting)
+        {
+            string wordFile = setting.CurrentFile;
+            this.Setting = setting;
+
+            if (string.IsNullOrEmpty(wordFile) || !File.Exists(wordFile))
+            {
+                #region 當沒有任何字集檔時，給予一個初始值
+                this.OriginalWords = new List<string>() {
+                    "A a",
+                    "B b",
+                    "C c",
+                    "D d",
+                    "E e",
+                    "F f",
+                    "G g",
+                    "H h",
+                    "I i",
+                    "J j",
+                    "K k",
+                    "L l",
+                    "M m",
+                    "N n",
+                    "O o",
+                    "P p",
+                    "Q q",
+                    "R r",
+                    "S s",
+                    "T t",
+                    "U u",
+                    "V v",
+                    "W w",
+                    "X x",
+                    "Y y",
+                    "Z z",
+                };
+                #endregion
+
+                this.Setting.CurrentFile = "";
+                this.OriginalSort();
+            } 
+            else
+            {
+                SortType oldSort = setting.SortType;
+
+                ImportFile(wordFile);
+                switch (oldSort)
+                {
+                    case SortType.Reverse:
+                        ReverseSort();
+                        break;
+                    case SortType.Random:
+                        RandomSort();
+                        break;
+                }
+            }
         }
 
         public string GetCurrentWord()
@@ -70,12 +97,14 @@ namespace FlashCard
         {
             this.Words = this.OriginalWords.Select(x => x).ToList();
             this.CurrentNo = 0;
+            this.Setting.SortType = SortType.Original;
         }
 
         public void ReverseSort()
         {
             this.Words = this.OriginalWords.Select(x => x).Reverse().ToList();
             this.CurrentNo = 0;
+            this.Setting.SortType = SortType.Reverse;
         }
 
         public void RandomSort()
@@ -92,9 +121,10 @@ namespace FlashCard
             }
 
             this.CurrentNo = 0;
+            this.Setting.SortType = SortType.Random;
         }
 
-        internal void ImportFile(string fileName)
+        public void ImportFile(string fileName)
         {
             //讀出所有內容.
             string fileText = File.ReadAllText(fileName, Encoding.Default);
@@ -106,6 +136,8 @@ namespace FlashCard
             OriginalWords = fileText.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
 
             OriginalSort();
+
+            this.Setting.CurrentFile = fileName;
         }
     }
 }

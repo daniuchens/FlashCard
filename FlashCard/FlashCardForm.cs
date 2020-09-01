@@ -11,7 +11,11 @@ namespace FlashCard
         public FlashCardForm()
         {
             InitializeComponent();
-            this.WordSet = new WordSet();
+
+            //讀取先前的設定值.
+            Setting setting = FileSetting.LoadFileSetting();
+
+            this.WordSet = new WordSet(setting);
             ShowWord();
 
             LoadFilesToMenu();
@@ -136,6 +140,11 @@ namespace FlashCard
             // 最後一行分隔線
             ToolStripSeparator sepline = new ToolStripSeparator();
             FToolStripMenuItem.DropDownItems.Insert(pos, sepline);
+        }
+
+        private void FlashCardForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FileSetting.SaveFileSetting(this.WordSet.Setting);
         }
     }
 }
