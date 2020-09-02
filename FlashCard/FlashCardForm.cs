@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -7,43 +8,31 @@ namespace FlashCard
     public partial class FlashCardForm : Form
     {
         private readonly WordSet WordSet;
+        private readonly Font ImageFont;
 
         public FlashCardForm()
         {
             InitializeComponent();
+            this.ImageFont = new Font(FontFamily.GenericSansSerif, 1000);
 
             //讀取先前的設定值.
             this.WordSet = new WordSet(FileSetting.LoadFileSetting());
         }
 
-        private void btnMain_Click(object sender, EventArgs e)
-        {
-            //按空白鍵也會觸發
-            ShowWord(this.WordSet.GetNextWord());
-        }
 
         private void FlashCardForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            switch (e.KeyChar) 
+            switch (e.KeyChar)
             {
-                case 'A':
-                case 'a':
-                    ShowWord(this.WordSet.GetPreviousWord());
-                    break;
-                case 'D':
-                case 'd':
+                case ' ':
                     ShowWord(this.WordSet.GetNextWord());
+                    e.Handled = true;
                     break;
             }
-
-            e.Handled = true;
         }
 
         private void FlashCardForm_Load(object sender, EventArgs e)
         {
-            //this.BringToFront();
-            //this.Focus();
-            this.KeyPreview = true;
             ShowWord();
             LoadFilesToMenu();
             SetSortTypeChecked();
@@ -51,15 +40,17 @@ namespace FlashCard
 
         private void FlashCardForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            //switch (e.KeyCode)
-            //{
-            //    case Keys.Down:
-            //    case Keys.Up:
-            //    case Keys.Left:
-            //    case Keys.Right:
-            //        e.IsInputKey = true;
-            //        break;
-            //}
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Left:
+                    ShowWord(this.WordSet.GetPreviousWord());
+                    break;
+                case Keys.Down:
+                case Keys.Right:
+                    ShowWord(this.WordSet.GetNextWord());
+                    break;
+            }
         }
 
         private void TToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -106,7 +97,8 @@ namespace FlashCard
                 word = this.WordSet.GetCurrentWord();
             }
 
-            this.btnMain.Text = word;
+            //將文字轉換為圖檔.
+            this.picBoxMain.Image = ImageHelper.TextToBitmap(word, this.ImageFont, Rectangle.Empty, Color.Blue, this.BackColor);
         }
 
         private void ImportFile()
@@ -178,6 +170,19 @@ namespace FlashCard
                     break;
                 default:
                     OriginalSortMenuItem.Checked = true;
+                    break;
+            }
+        }
+
+        private void picBoxMain_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    ShowWord(this.WordSet.GetNextWord());
+                    break;
+                case MouseButtons.Right:
+                    ShowWord(this.WordSet.GetPreviousWord());
                     break;
             }
         }

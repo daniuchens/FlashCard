@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlashCardForm));
-            this.btnMain = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,22 +39,10 @@
             this.ReverseSortMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RandomSortMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.picBoxMain = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxMain)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnMain
-            // 
-            this.btnMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMain.Font = new System.Drawing.Font("微軟正黑體", 400.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnMain.Location = new System.Drawing.Point(0, 30);
-            this.btnMain.Name = "btnMain";
-            this.btnMain.Size = new System.Drawing.Size(801, 421);
-            this.btnMain.TabIndex = 0;
-            this.btnMain.Text = "A a";
-            this.btnMain.UseVisualStyleBackColor = true;
-            this.btnMain.Click += new System.EventHandler(this.btnMain_Click);
             // 
             // menuStrip1
             // 
@@ -142,12 +129,25 @@
             // 
             this.openFileDialog1.Filter = "文字檔案|*.txt|CSV檔案|*.csv";
             // 
+            // picBoxMain
+            // 
+            this.picBoxMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBoxMain.Location = new System.Drawing.Point(0, 30);
+            this.picBoxMain.Name = "picBoxMain";
+            this.picBoxMain.Size = new System.Drawing.Size(800, 421);
+            this.picBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBoxMain.TabIndex = 2;
+            this.picBoxMain.TabStop = false;
+            this.picBoxMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBoxMain_MouseDown);
+            // 
             // FlashCardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnMain);
+            this.Controls.Add(this.picBoxMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FlashCardForm";
@@ -160,14 +160,13 @@
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FlashCardForm_PreviewKeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnMain;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem FToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenFileMenuItem;
@@ -178,6 +177,7 @@
         private System.Windows.Forms.ToolStripMenuItem ReverseSortMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RandomSortMenuItem;
         public System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.PictureBox picBoxMain;
     }
 }
 
