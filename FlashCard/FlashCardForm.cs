@@ -28,6 +28,10 @@ namespace FlashCard
                     ShowWord(this.WordSet.GetNextWord());
                     e.Handled = true;
                     break;
+                case '0':
+                    ShowWord(this.WordSet.GetFirstWord());
+                    e.Handled = true;
+                    break;
             }
         }
 
@@ -85,7 +89,6 @@ namespace FlashCard
                 default:
                     WordSet.ImportFile(e.ClickedItem.Tag.ToString());
                     ShowWord();
-                    SetSortTypeChecked();
                     break;
             }
         }
@@ -98,7 +101,7 @@ namespace FlashCard
             }
 
             //將文字轉換為圖檔.
-            this.picBoxMain.Image = ImageHelper.TextToBitmap(word, this.ImageFont, Rectangle.Empty, Color.Blue, this.BackColor);
+            this.picBoxMain.Image = ImageHelper.TextToBitmap(word, this.ImageFont, Rectangle.Empty, Color.Green, this.BackColor);
         }
 
         private void ImportFile()
@@ -113,7 +116,6 @@ namespace FlashCard
             {
                 WordSet.ImportFile(openFileDialog1.FileName);
                 ShowWord();
-                SetSortTypeChecked();
             }
         }
 

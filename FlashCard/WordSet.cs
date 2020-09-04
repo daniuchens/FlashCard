@@ -61,18 +61,7 @@ namespace FlashCard
             } 
             else
             {
-                SortType oldSort = setting.SortType;
-
                 ImportFile(wordFile);
-                switch (oldSort)
-                {
-                    case SortType.Reverse:
-                        ReverseSort();
-                        break;
-                    case SortType.Random:
-                        RandomSort();
-                        break;
-                }
             }
         }
 
@@ -93,6 +82,12 @@ namespace FlashCard
             return this.Words[CurrentNo];
         }
 
+        public string GetFirstWord()
+        {
+            this.CurrentNo = 0;
+            return this.Words[CurrentNo];
+        }
+
         public void OriginalSort()
         {
             this.Words = this.OriginalWords.Select(x => x).ToList();
@@ -109,7 +104,7 @@ namespace FlashCard
 
         public void RandomSort()
         {
-            List<string> oldWords = this.Words;
+            List<string> oldWords = this.OriginalWords.Select(x => x).ToList();
             this.Words = new List<string>();
             Random rand = new Random();
 
@@ -135,9 +130,20 @@ namespace FlashCard
             //每個指令去除頭尾的空白
             OriginalWords = fileText.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
 
-            OriginalSort();
-
             this.Setting.CurrentFile = fileName;
+
+            switch(this.Setting.SortType)
+            {
+                case SortType.Reverse:
+                    ReverseSort();
+                    break;
+                case SortType.Random:
+                    RandomSort();
+                    break;
+                default:
+                    OriginalSort();
+                    break;
+            }
         }
     }
 }
