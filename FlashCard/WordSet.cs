@@ -11,12 +11,9 @@ namespace FlashCard
     /// </summary>
     public class WordSet
     {
-        private List<string> Words;
-        private List<string> OriginalWords;
         private int CurrentNo = 0;
-
-        public Setting Setting { get; set; }
-
+        private List<string> OriginalWords;
+        private List<string> Words;
 
         public WordSet(Setting setting)
         {
@@ -26,6 +23,7 @@ namespace FlashCard
             if (string.IsNullOrEmpty(wordFile) || !File.Exists(wordFile))
             {
                 #region 當沒有任何字集檔時，給予一個初始值
+
                 this.OriginalWords = new List<string>() {
                     "A a",
                     "B b",
@@ -54,19 +52,28 @@ namespace FlashCard
                     "Y y",
                     "Z z",
                 };
-                #endregion
+
+                #endregion 當沒有任何字集檔時，給予一個初始值
 
                 this.Setting.CurrentFile = "";
                 this.OriginalSort();
-            } 
+            }
             else
             {
                 ImportFile(wordFile);
             }
         }
 
+        public Setting Setting { get; set; }
+
         public string GetCurrentWord()
         {
+            return this.Words[CurrentNo];
+        }
+
+        public string GetFirstWord()
+        {
+            this.CurrentNo = 0;
             return this.Words[CurrentNo];
         }
 
@@ -82,10 +89,33 @@ namespace FlashCard
             return this.Words[CurrentNo];
         }
 
-        public string GetFirstWord()
+        public void ImportFile(string fileName)
         {
-            this.CurrentNo = 0;
-            return this.Words[CurrentNo];
+            //讀出所有內容.
+            string fileText = File.ReadAllText(fileName, Encoding.Default);
+
+            //移除所有的\r\n
+            fileText = fileText.Replace("\r\n", "");
+
+            //每個指令去除頭尾的空白
+            OriginalWords = fileText.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+
+            this.Setting.CurrentFile = fileName;
+
+            switch (this.Setting.SortType)
+            {
+                case SortType.Reverse:
+                    ReverseSort();
+                    break;
+
+                case SortType.Random:
+                    RandomSort();
+                    break;
+
+                default:
+                    OriginalSort();
+                    break;
+            }
         }
 
         public void OriginalSort()
@@ -93,13 +123,6 @@ namespace FlashCard
             this.Words = this.OriginalWords.Select(x => x).ToList();
             this.CurrentNo = 0;
             this.Setting.SortType = SortType.Original;
-        }
-
-        public void ReverseSort()
-        {
-            this.Words = this.OriginalWords.Select(x => x).Reverse().ToList();
-            this.CurrentNo = 0;
-            this.Setting.SortType = SortType.Reverse;
         }
 
         public void RandomSort()
@@ -119,31 +142,11 @@ namespace FlashCard
             this.Setting.SortType = SortType.Random;
         }
 
-        public void ImportFile(string fileName)
+        public void ReverseSort()
         {
-            //讀出所有內容.
-            string fileText = File.ReadAllText(fileName, Encoding.Default);
-
-            //移除所有的\r\n
-            fileText = fileText.Replace("\r\n", "");
-
-            //每個指令去除頭尾的空白
-            OriginalWords = fileText.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-
-            this.Setting.CurrentFile = fileName;
-
-            switch(this.Setting.SortType)
-            {
-                case SortType.Reverse:
-                    ReverseSort();
-                    break;
-                case SortType.Random:
-                    RandomSort();
-                    break;
-                default:
-                    OriginalSort();
-                    break;
-            }
+            this.Words = this.OriginalWords.Select(x => x).Reverse().ToList();
+            this.CurrentNo = 0;
+            this.Setting.SortType = SortType.Reverse;
         }
     }
 }

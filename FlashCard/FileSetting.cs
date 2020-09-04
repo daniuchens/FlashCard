@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace FlashCard
 {
     /// <summary>
     /// 將程式設定記錄在檔案中
     /// </summary>
-    public class FileSetting
+    public static class FileSetting
     {
         private const string filePath = "setting.json";
-        
-        public static Setting LoadFileSetting()
+
+        public static Setting Load()
         {
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 return new Setting() { CurrentFile = "" };
             }
@@ -26,7 +22,7 @@ namespace FlashCard
             return JsonConvert.DeserializeObject<Setting>(jsonString);
         }
 
-        public static void SaveFileSetting(Setting setting)
+        public static void Save(Setting setting)
         {
             string jsonString = JsonConvert.SerializeObject(setting);
             File.WriteAllText(filePath, jsonString, Encoding.UTF8);
