@@ -43,7 +43,7 @@ namespace FlashCard
         private void FlashCardForm_Load(object sender, EventArgs e)
         {
             ShowWord();
-            //LoadFilesToMenu();
+            LoadRecentPathToMenu();
             SetSortTypeChecked();
         }
 
@@ -80,8 +80,18 @@ namespace FlashCard
                     break;
 
                 default:
-                    WordSet.ImportFile(e.ClickedItem.Tag.ToString());
+                    WordPath wordPath = this.WordSet.Setting.RecentPaths[(int)e.ClickedItem.Tag];
+                    if (wordPath.PathMode == DisplayMode.ImageFolder)
+                    {
+                        WordSet.ImportImageFolder(wordPath.Path);
+                    }
+                    else
+                    {
+                        WordSet.ImportFile(wordPath.Path);
+                    }
+
                     ShowWord();
+                    LoadRecentPathToMenu();
                     break;
             }
         }
@@ -98,6 +108,7 @@ namespace FlashCard
             {
                 WordSet.ImportFile(openFileDialog1.FileName);
                 ShowWord();
+                LoadRecentPathToMenu();
             }
         }
 
@@ -113,31 +124,33 @@ namespace FlashCard
             {
                 WordSet.ImportImageFolder(folderBrowserDialog1.SelectedPath);
                 ShowWord();
+                LoadRecentPathToMenu();
             }
         }
 
-        private void InsertFileToMenu(FileInfo file, int pos)
+        private void LoadRecentPathToMenu()
         {
-            var menuItem = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(file.Name));
-            menuItem.Tag = file.FullName;
-            FToolStripMenuItem.DropDownItems.Insert(pos, menuItem);
-        }
+            if (this.WordSet.Setting.RecentPaths == null)
+            {
+                return;
+            }
 
-        // 將目前所在路徑的全部卡片檔案(*.txt)都讀入到menu上
-        private void LoadFilesToMenu()
-        {
-            DirectoryInfo folder = new DirectoryInfo(Directory.GetCurrentDirectory());
+            // 清掉先前的
             int pos = 3;
-
-            foreach (var file in folder.GetFiles("*.txt"))
+            int length = FToolStripMenuItem.DropDownItems.Count - pos - 1;
+            for (int j = 0; j < length; j++)
             {
-                InsertFileToMenu(file, pos);
-                pos++;
+                FToolStripMenuItem.DropDownItems.RemoveAt(pos);
             }
 
-            foreach (var file in folder.GetFiles("*.csv"))
+            //依照目前的設定重畫
+            int i = 0;
+            foreach (WordPath item in this.WordSet.Setting.RecentPaths)
             {
-                InsertFileToMenu(file, pos);
+                var menuItem = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(item.Path));
+                menuItem.Tag = i;
+                FToolStripMenuItem.DropDownItems.Insert(pos, menuItem);
+                i++;
                 pos++;
             }
 
@@ -208,7 +221,7 @@ namespace FlashCard
 
         private void TToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch(e.ClickedItem.Tag)
+            switch (e.ClickedItem.Tag)
             {
                 case "C":
                     WordSet.OriginalSort();

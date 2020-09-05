@@ -1,11 +1,19 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 
 namespace FlashCard
 {
     public static class ImageHelper
     {
+        public static bool IsImageFile(string extension)
+        {
+            string[] imageExts = { "BMP", "GIF", "EXIF", "JPG", "PNG", "TIFF" };
+
+            string imageExt = extension.Replace(".", "").ToUpper();
+
+            return imageExts.Contains(imageExt);
+        }
+
         /// <summary>
         /// 將文字轉換成 Bitmap
         /// </summary>
@@ -45,15 +53,6 @@ namespace FlashCard
             g.FillRectangle(new SolidBrush(backColor), rect);
             g.DrawString(text, font, new SolidBrush(fontColor), rect, format);
             return bmp;
-        }
-
-        public static bool IsImageFile(string extension)
-        {
-            string[] imageExts = { "BMP","GIF", "EXIF", "JPG", "PNG", "TIFF"};
-
-            string imageExt = extension.Replace(".", "").ToUpper();
-
-            return imageExts.Contains(imageExt);
         }
     }
 }
