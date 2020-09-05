@@ -25,6 +25,7 @@ namespace FlashCard
             }
             else if (string.IsNullOrEmpty(setting.CurrentPath) || !File.Exists(setting.CurrentPath))
             {
+                this.Setting.RemoveFromRecentPaths(setting.CurrentPath);
                 InitialDefaultText();
             }
             else
@@ -60,6 +61,13 @@ namespace FlashCard
 
         public void ImportFile(string fileName)
         {
+            //再判斷一下檔案是否存在
+            if (!File.Exists(fileName))
+            {
+                this.Setting.RemoveFromRecentPaths(fileName);
+                return;
+            }
+
             //讀出所有內容.
             string fileText = File.ReadAllText(fileName, Encoding.Default);
 
@@ -80,6 +88,7 @@ namespace FlashCard
         {
             if (!Directory.Exists(folderPath))
             {
+                this.Setting.RemoveFromRecentPaths(folderPath);
                 return false;
             }
 
@@ -100,6 +109,7 @@ namespace FlashCard
             //都沒有圖檔的時候，載入失敗.
             if (imageFiles.Count == 0)
             {
+                this.Setting.RemoveFromRecentPaths(folderPath);
                 return false;
             }
 

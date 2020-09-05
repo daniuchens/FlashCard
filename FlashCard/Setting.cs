@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace FlashCard
 {
@@ -22,11 +23,7 @@ namespace FlashCard
             }
 
             // 如果之前已經有存過了，就先刪掉.
-            int pos = RecentPaths.FindIndex(x => x.Path == path);
-            if (pos >= 0)
-            {
-                RecentPaths.RemoveAt(pos);
-            }
+            RemoveFromRecentPaths(path);
 
             // 最新的加在開頭
             RecentPaths.Insert(0, new WordPath()
@@ -39,6 +36,24 @@ namespace FlashCard
             if (RecentPaths.Count > MaxRememberPathCount)
             {
                 RecentPaths.RemoveAt(MaxRememberPathCount);
+            }
+        }
+
+        /// <summary>
+        /// 從最近記錄檔中刪除指定的路徑(通常用於檔案或路徑已經不存在時)
+        /// </summary>
+        /// <param name="path"></param>
+        public void RemoveFromRecentPaths(string path)
+        {
+            if (RecentPaths == null || !RecentPaths.Any())
+            {
+                return;
+            }
+
+            int pos = RecentPaths.FindIndex(x => x.Path == path);
+            if (pos >= 0)
+            {
+                RecentPaths.RemoveAt(pos);
             }
         }
     }
