@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisplayMode.cs" />
     <Compile Include="FileSetting.cs" />
     <Compile Include="FlashCardForm.cs">
       <SubType>Form</SubType>

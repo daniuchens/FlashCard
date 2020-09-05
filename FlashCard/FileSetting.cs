@@ -15,7 +15,7 @@ namespace FlashCard
         {
             if (!File.Exists(filePath))
             {
-                return new Setting() { CurrentFile = "" };
+                return new Setting() { CurrentPath = "" };
             }
 
             string jsonString = File.ReadAllText(filePath, Encoding.UTF8);

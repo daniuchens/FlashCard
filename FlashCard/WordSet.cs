@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace FlashCard
 {
@@ -17,14 +18,27 @@ namespace FlashCard
 
         public WordSet(Setting setting)
         {
-            string wordFile = setting.CurrentFile;
             this.Setting = setting;
 
-            if (string.IsNullOrEmpty(wordFile) || !File.Exists(wordFile))
+            if (setting.DisplayMode == DisplayMode.ImageFolder && ImportImageFolder(setting.CurrentPath))
             {
-                #region 當沒有任何字集檔時，給予一個初始值
+                return;
+            }
+            else if (string.IsNullOrEmpty(setting.CurrentPath) || !File.Exists(setting.CurrentPath))
+            {
+                InitialDefaultText();
+            } 
+            else
+            {
+                ImportFile(setting.CurrentPath);
+            }
+        }
 
-                this.OriginalWords = new List<string>() {
+        private void InitialDefaultText()
+        {
+            #region 當沒有任何字集檔時，給予一個初始值
+
+            this.OriginalWords = new List<string>() {
                     "A a",
                     "B b",
                     "C c",
@@ -53,18 +67,14 @@ namespace FlashCard
                     "Z z",
                 };
 
-                #endregion 當沒有任何字集檔時，給予一個初始值
+            #endregion 當沒有任何字集檔時，給予一個初始值
 
-                this.Setting.CurrentFile = "";
-                this.OriginalSort();
-            }
-            else
-            {
-                ImportFile(wordFile);
-            }
+            this.Setting.CurrentPath = "";
+            this.SettingSort();
+            this.Setting.DisplayMode = DisplayMode.TextFile;
         }
 
-        public Setting Setting { get; set; }
+        public Setting Setting { get; private set; }
 
         public string GetCurrentWord()
         {
@@ -100,8 +110,13 @@ namespace FlashCard
             //每個指令去除頭尾的空白
             OriginalWords = fileText.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
 
-            this.Setting.CurrentFile = fileName;
+            this.Setting.CurrentPath = fileName;
+            this.Setting.DisplayMode = DisplayMode.TextFile;
+            this.SettingSort();
+        }
 
+        private void SettingSort()
+        {
             switch (this.Setting.SortType)
             {
                 case SortType.Reverse:
@@ -116,6 +131,37 @@ namespace FlashCard
                     OriginalSort();
                     break;
             }
+        }
+
+        public bool ImportImageFolder(string folderPath)
+        {
+            DirectoryInfo folder = new DirectoryInfo(folderPath);
+
+            List<string> imageFiles = new List<string>();
+            foreach (var file in folder.GetFiles("*.*").OrderBy(x => x.Name))
+            {
+                //檢查是否為BitMap所支援的圖檔
+                if (!ImageHelper.IsImageFile(file.Extension))
+                {
+                    continue;
+                }
+
+                imageFiles.Add(file.FullName);
+            }
+
+            //都沒有圖檔的時候，載入失敗.
+            if (imageFiles.Count == 0)
+            {
+                return false;
+            }
+
+            //文字檔改成存檔案路徑
+            this.OriginalWords = imageFiles;
+            this.Setting.CurrentPath = folderPath;
+            this.Setting.DisplayMode = DisplayMode.ImageFolder;
+            this.SettingSort();
+
+            return true;
         }
 
         public void OriginalSort()

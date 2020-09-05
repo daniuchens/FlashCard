@@ -5,8 +5,10 @@
     /// </summary>
     public class Setting
     {
-        public string CurrentFile { get; set; }
+        public string CurrentPath { get; set; }
 
         public SortType SortType { get; set; }
+
+        public DisplayMode DisplayMode { get; set; }
     }
 }

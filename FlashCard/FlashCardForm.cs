@@ -71,6 +71,10 @@ namespace FlashCard
                     ImportFile();
                     break;
 
+                case "M":
+                    ImportImageFolder();
+                    break;
+
                 case "X":
                     this.Close();
                     break;
@@ -97,6 +101,21 @@ namespace FlashCard
             }
         }
 
+        private void ImportImageFolder()
+        {
+            // 指定開啟的預設路徑
+            if (string.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath))
+            {
+                folderBrowserDialog1.SelectedPath = Directory.GetCurrentDirectory();
+            }
+
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                WordSet.ImportImageFolder(folderBrowserDialog1.SelectedPath);
+                ShowWord();
+            }
+        }
+
         private void InsertFileToMenu(FileInfo file, int pos)
         {
             var menuItem = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(file.Name));
@@ -108,7 +127,7 @@ namespace FlashCard
         private void LoadFilesToMenu()
         {
             DirectoryInfo folder = new DirectoryInfo(Directory.GetCurrentDirectory());
-            int pos = 2;
+            int pos = 3;
 
             foreach (var file in folder.GetFiles("*.txt"))
             {
@@ -122,9 +141,12 @@ namespace FlashCard
                 pos++;
             }
 
-            // 最後一行分隔線
-            ToolStripSeparator sepline = new ToolStripSeparator();
-            FToolStripMenuItem.DropDownItems.Insert(pos, sepline);
+            // 最後一行分隔線(有抓到檔案才畫)
+            if (pos > 3)
+            {
+                ToolStripSeparator sepline = new ToolStripSeparator();
+                FToolStripMenuItem.DropDownItems.Insert(pos, sepline);
+            }
         }
 
         private void picBoxMain_MouseDown(object sender, MouseEventArgs e)
@@ -172,8 +194,16 @@ namespace FlashCard
                 word = this.WordSet.GetCurrentWord();
             }
 
-            //將文字轉換為圖檔.
-            this.picBoxMain.Image = ImageHelper.TextToBitmap(word, this.ImageFont, Rectangle.Empty, Color.Green, this.BackColor);
+            if (this.WordSet.Setting.DisplayMode == DisplayMode.ImageFolder)
+            {
+                //讀取該路徑的圖檔
+                this.picBoxMain.Load(word);
+            }
+            else
+            {
+                //將文字轉換為圖檔.
+                this.picBoxMain.Image = ImageHelper.TextToBitmap(word, this.ImageFont, Rectangle.Empty, Color.Green, this.BackColor);
+            }
         }
 
         private void TToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)

@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenImageFolderMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +41,7 @@
             this.RandomSortMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.picBoxMain = new System.Windows.Forms.PictureBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxMain)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +63,7 @@
             // 
             this.FToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenFileMenuItem,
+            this.OpenImageFolderMenuItem,
             this.toolStripSeparator,
             this.XToolStripMenuItem});
             this.FToolStripMenuItem.Name = "FToolStripMenuItem";
@@ -74,19 +77,28 @@
             this.OpenFileMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenFileMenuItem.Name = "OpenFileMenuItem";
             this.OpenFileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenFileMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.OpenFileMenuItem.Size = new System.Drawing.Size(265, 26);
             this.OpenFileMenuItem.Tag = "O";
             this.OpenFileMenuItem.Text = "載入檔案(&O)";
+            // 
+            // OpenImageFolderMenuItem
+            // 
+            this.OpenImageFolderMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("OpenImageFolderMenuItem.Image")));
+            this.OpenImageFolderMenuItem.Name = "OpenImageFolderMenuItem";
+            this.OpenImageFolderMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.OpenImageFolderMenuItem.Size = new System.Drawing.Size(265, 26);
+            this.OpenImageFolderMenuItem.Tag = "M";
+            this.OpenImageFolderMenuItem.Text = "載入圖檔路徑(&M)";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(228, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(262, 6);
             // 
             // XToolStripMenuItem
             // 
             this.XToolStripMenuItem.Name = "XToolStripMenuItem";
-            this.XToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.XToolStripMenuItem.Size = new System.Drawing.Size(265, 26);
             this.XToolStripMenuItem.Tag = "X";
             this.XToolStripMenuItem.Text = "結束(&X)";
             // 
@@ -176,8 +188,10 @@
         private System.Windows.Forms.ToolStripMenuItem OriginalSortMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ReverseSortMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RandomSortMenuItem;
-        public System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox picBoxMain;
+        private System.Windows.Forms.ToolStripMenuItem OpenImageFolderMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
