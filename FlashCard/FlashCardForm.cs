@@ -9,6 +9,9 @@ namespace FlashCard
     {
         private readonly Font ImageFont;
         private readonly WordSet WordSet;
+        private bool IsFullScreen = false;
+        private ScreenInfo FormInfo;
+        private ScreenInfo PicMainInfo;
 
         public FlashCardForm()
         {
@@ -60,7 +63,53 @@ namespace FlashCard
                 case Keys.Right:
                     ShowWord(this.WordSet.GetNextWord());
                     break;
+
+                case Keys.F11:
+                    SetFullScreen();
+                    break;
             }
+        }
+
+        private void SetFullScreen()
+        {
+            Rectangle rect = Screen.GetBounds(this);
+            if (IsFullScreen)
+            {
+                // 取消全屏
+                FormBorderStyle = FormBorderStyle.Sizable;
+                picBoxMain.Dock = DockStyle.None;
+                
+                FormInfo.CopyToControl(this);
+                PicMainInfo.CopyToControl(picBoxMain);
+
+                picBoxMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+                menuStrip1.Show();
+            }
+            else
+            {
+                //記住先前的值.
+                FormInfo = new ScreenInfo(this);
+                PicMainInfo = new ScreenInfo(picBoxMain);
+
+                // 設置全屏
+                FormBorderStyle = FormBorderStyle.None;
+                picBoxMain.Dock = DockStyle.Fill;
+
+                Location = new Point(0, 0);
+                Width = rect.Width;
+                Height = rect.Height;
+                
+                picBoxMain.Location = new Point(0, 0);
+                picBoxMain.Width = rect.Width;
+                picBoxMain.Height = rect.Height;
+
+                menuStrip1.GripStyle = ToolStripGripStyle.Hidden;
+
+                menuStrip1.Hide();
+            }
+
+            IsFullScreen = !IsFullScreen;
         }
 
         private void FToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
