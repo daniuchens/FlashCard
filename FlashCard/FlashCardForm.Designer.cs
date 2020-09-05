@@ -84,6 +84,7 @@
             // OpenImageFolderMenuItem
             // 
             this.OpenImageFolderMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("OpenImageFolderMenuItem.Image")));
+            this.OpenImageFolderMenuItem.ImageTransparentColor = System.Drawing.Color.White;
             this.OpenImageFolderMenuItem.Name = "OpenImageFolderMenuItem";
             this.OpenImageFolderMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.OpenImageFolderMenuItem.Size = new System.Drawing.Size(265, 26);

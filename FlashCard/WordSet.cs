@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
 namespace FlashCard
 {
@@ -135,6 +134,11 @@ namespace FlashCard
 
         public bool ImportImageFolder(string folderPath)
         {
+            if(!Directory.Exists(folderPath))
+            {
+                return false;
+            }
+
             DirectoryInfo folder = new DirectoryInfo(folderPath);
 
             List<string> imageFiles = new List<string>();

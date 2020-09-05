@@ -43,7 +43,7 @@ namespace FlashCard
         private void FlashCardForm_Load(object sender, EventArgs e)
         {
             ShowWord();
-            LoadFilesToMenu();
+            //LoadFilesToMenu();
             SetSortTypeChecked();
         }
 
