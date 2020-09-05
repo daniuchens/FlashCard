@@ -136,7 +136,7 @@ namespace FlashCard
             }
 
             // 清掉先前的
-            int pos = 3;
+            int pos = FToolStripMenuItem.DropDownItems.IndexOfKey("toolStripSeparator") + 1;
             int length = FToolStripMenuItem.DropDownItems.Count - pos - 1;
             for (int j = 0; j < length; j++)
             {
@@ -149,16 +149,17 @@ namespace FlashCard
             {
                 var menuItem = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(item.Path));
                 menuItem.Tag = i;
-                FToolStripMenuItem.DropDownItems.Insert(pos, menuItem);
+                menuItem.Image = ImageHelper.GetExtImage(item);
+                menuItem.ImageTransparentColor = Color.White;
+                FToolStripMenuItem.DropDownItems.Insert(pos + i, menuItem);
                 i++;
-                pos++;
             }
 
             // 最後一行分隔線(有抓到檔案才畫)
-            if (pos > 3)
+            if (i > 0)
             {
                 ToolStripSeparator sepline = new ToolStripSeparator();
-                FToolStripMenuItem.DropDownItems.Insert(pos, sepline);
+                FToolStripMenuItem.DropDownItems.Insert(pos + i, sepline);
             }
         }
 

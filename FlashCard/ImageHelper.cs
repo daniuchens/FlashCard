@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace FlashCard
@@ -53,6 +55,27 @@ namespace FlashCard
             g.FillRectangle(new SolidBrush(backColor), rect);
             g.DrawString(text, font, new SolidBrush(fontColor), rect, format);
             return bmp;
+        }
+
+        public static Image GetExtImage(WordPath item)
+        {
+            if (item.PathMode == DisplayMode.ImageFolder)
+            {
+                return ImageResource.ImageFolder;
+            }
+
+            string fileExt = Path.GetExtension(item.Path).Replace(".", "").ToUpper();
+
+            switch(fileExt)
+            {
+                case "TXT":
+                    return ImageResource.TXT;
+
+                case "CSV":
+                    return ImageResource.CSV;
+            }
+
+            return null;
         }
     }
 }
